@@ -54,15 +54,6 @@
         <button onclick="switchTab('finanzas')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition text-slate-400 hover:bg-slate-800 hover:text-slate-200">
           <i class="fa-solid fa-hand-holding-dollar w-5"></i> Finanzas y Diezmos
         </button>
-        <button onclick="switchTab('grupos')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition text-slate-400 hover:bg-slate-800 hover:text-slate-200">
-          <i class="fa-solid fa-people-roof w-5"></i> Grupos Pequeños
-        </button>
-        <button onclick="switchTab('eventos')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition text-slate-400 hover:bg-slate-800 hover:text-slate-200">
-          <i class="fa-solid fa-calendar-check w-5"></i> Eventos y Servicios
-        </button>
-        <button onclick="switchTab('oracion')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition text-slate-400 hover:bg-slate-800 hover:text-slate-200">
-          <i class="fa-solid fa-hands-praying w-5"></i> Peticiones de Oración
-        </button>
         <button onclick="switchTab('config')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition text-slate-400 hover:bg-slate-800 hover:text-slate-200">
           <i class="fa-solid fa-sliders w-5"></i> Configuración
         </button>
@@ -98,7 +89,7 @@
 
       <!-- SECTION: DASHBOARD -->
       <section id="sec-dashboard" class="tab-content space-y-6">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div class="bg-darkcard p-5 rounded-xl border border-darkborder">
             <p class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Total Miembros</p>
             <h3 id="dash-total-miembros" class="text-2xl font-bold mt-1">0</h3>
@@ -110,10 +101,6 @@
           <div class="bg-darkcard p-5 rounded-xl border border-darkborder">
             <p class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Ingresos del Mes</p>
             <h3 id="dash-total-ingresos" class="text-2xl font-bold mt-1">$0.00</h3>
-          </div>
-          <div class="bg-darkcard p-5 rounded-xl border border-darkborder">
-            <p class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Peticiones Activas</p>
-            <h3 id="dash-total-oraciones" class="text-2xl font-bold mt-1">0</h3>
           </div>
         </div>
 
@@ -127,13 +114,6 @@
 
       <!-- SECTION: MIEMBROS -->
       <section id="sec-miembros" class="tab-content hidden space-y-4">
-        <div class="flex justify-between items-center">
-          <input type="text" id="search-miembros" onkeyup="filtrarMiembros()" placeholder="Buscar por nombre o teléfono..." class="bg-darkcard border border-darkborder rounded-lg px-4 py-2 text-sm w-72 focus:outline-none focus:border-brand-500">
-          <button onclick="abrirModalMiembro()" class="bg-brand-600 hover:bg-brand-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition flex items-center gap-2">
-            <i class="fa-solid fa-plus"></i> Nuevo Miembro / Visitante
-          </button>
-        </div>
-
         <div class="bg-darkcard rounded-xl border border-darkborder overflow-hidden">
           <table class="w-full text-left border-collapse">
             <thead class="bg-slate-800/50 text-slate-400 text-xs uppercase border-b border-darkborder">
@@ -142,7 +122,6 @@
                 <th class="p-4">Teléfono</th>
                 <th class="p-4">Clasificación</th>
                 <th class="p-4">Estado Espiritual</th>
-                <th class="p-4 text-right">Acciones</th>
               </tr>
             </thead>
             <tbody id="tabla-miembros" class="divide-y divide-darkborder text-sm">
@@ -154,15 +133,6 @@
 
       <!-- SECTION: FINANZAS -->
       <section id="sec-finanzas" class="tab-content hidden space-y-4">
-        <div class="flex justify-end gap-3">
-          <button onclick="registrarTransaccion('ingreso')" class="bg-brand-600 hover:bg-brand-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition flex items-center gap-2">
-            <i class="fa-solid fa-arrow-down font-bold"></i> Registrar Ingreso / Diezmo
-          </button>
-          <button onclick="registrarTransaccion('egreso')" class="bg-rose-600 hover:bg-rose-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition flex items-center gap-2">
-            <i class="fa-solid fa-arrow-up font-bold"></i> Registrar Gasto
-          </button>
-        </div>
-
         <div class="bg-darkcard rounded-xl border border-darkborder overflow-hidden">
           <table class="w-full text-left border-collapse">
             <thead class="bg-slate-800/50 text-slate-400 text-xs uppercase border-b border-darkborder">
@@ -189,21 +159,110 @@
             <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Nombre de la Congregación</label>
             <input type="text" id="cfg-nombre" class="w-full bg-slate-900 border border-darkborder rounded-lg p-2.5 text-sm">
           </div>
-          <div>
-            <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Moneda Local</label>
-            <input type="text" id="cfg-moneda" value="USD ($)" class="w-full bg-slate-900 border border-darkborder rounded-lg p-2.5 text-sm">
-          </div>
-          <button onclick="guardarConfiguracion()" class="bg-brand-600 hover:bg-brand-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
-            Guardar Cambios
-          </button>
         </div>
       </section>
 
     </div>
   </main>
 
-  <!-- JS Principal (Rutas directas sin carpeta js/) -->
-  <script src="db.js"></script>
-  <script src="app.js"></script>
+  <!-- LÓGICA JAVASCRIPT EMBEBIDA -->
+  <script>
+    // --- DB & STORAGE ---
+    const DB_KEY = "IGLESIA_ERP_DATA";
+
+    const defaultData = {
+      config: { nombreIglesia: "Iglesia Central", moneda: "$" },
+      miembros: [
+        { id: 1, nombre: "Juan Pérez", telefono: "+504 9900-0000", tipo: "Miembro", estado: "Líder" },
+        { id: 2, nombre: "María López", telefono: "+504 8811-2233", tipo: "Visitante", estado: "Nuevo" }
+      ],
+      finanzas: [
+        { id: 1, fecha: "2026-08-20", tipo: "ingreso", categoria: "Diezmo", descripcion: "Aporte semanal", monto: 150.00 },
+        { id: 2, fecha: "2026-08-22", tipo: "egreso", categoria: "Servicios", descripcion: "Pago de electricidad", monto: 45.00 }
+      ],
+      actividades: [
+        "Sistema iniciado correctamente."
+      ]
+    };
+
+    function getDB() {
+      const data = localStorage.getItem(DB_KEY);
+      return data ? JSON.parse(data) : defaultData;
+    }
+
+    // --- APLICACIÓN ---
+    document.addEventListener("DOMContentLoaded", () => {
+      renderDashboard();
+      renderMiembros();
+      renderFinanzas();
+    });
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+
+      const selectedSec = document.getElementById(`sec-${tabId}`);
+      if(selectedSec) selectedSec.classList.remove('hidden');
+
+      const pageTitle = document.getElementById('page-title');
+      pageTitle.innerText = tabId.charAt(0).toUpperCase() + tabId.slice(1);
+    }
+
+    function renderDashboard() {
+      const db = getDB();
+      document.getElementById('dash-total-miembros').innerText = db.miembros.filter(m => m.tipo === 'Miembro').length;
+      document.getElementById('dash-total-visitantes').innerText = db.miembros.filter(m => m.tipo === 'Visitante').length;
+      
+      const totalIngresos = db.finanzas
+        .filter(f => f.tipo === 'ingreso')
+        .reduce((acc, curr) => acc + Number(curr.monto), 0);
+      
+      document.getElementById('dash-total-ingresos').innerText = `${db.config.moneda} ${totalIngresos.toFixed(2)}`;
+
+      const lista = document.getElementById('lista-actividad');
+      lista.innerHTML = db.actividades.map(act => `<li class="py-2 flex items-center gap-2"><i class="fa-solid fa-circle-info text-xs text-brand-500"></i> ${act}</li>`).join('');
+    }
+
+    function renderMiembros() {
+      const db = getDB();
+      const tabla = document.getElementById('tabla-miembros');
+      
+      tabla.innerHTML = db.miembros.map(m => `
+        <tr class="hover:bg-slate-800/40 transition">
+          <td class="p-4 font-medium">${m.nombre}</td>
+          <td class="p-4 text-slate-400">${m.telefono}</td>
+          <td class="p-4"><span class="px-2 py-1 rounded text-xs ${m.tipo === 'Miembro' ? 'bg-emerald-900/50 text-emerald-300' : 'bg-amber-900/50 text-amber-300'}">${m.tipo}</span></td>
+          <td class="p-4 text-slate-300">${m.estado}</td>
+        </tr>
+      `).join('');
+    }
+
+    function renderFinanzas() {
+      const db = getDB();
+      const tabla = document.getElementById('tabla-finanzas');
+      
+      tabla.innerHTML = db.finanzas.map(f => `
+        <tr class="hover:bg-slate-800/40 transition">
+          <td class="p-4 text-slate-400">${f.fecha}</td>
+          <td class="p-4"><span class="uppercase font-bold text-xs ${f.tipo === 'ingreso' ? 'text-brand-500' : 'text-rose-500'}">${f.tipo}</span></td>
+          <td class="p-4 font-medium">${f.categoria}</td>
+          <td class="p-4 text-slate-400">${f.descripcion}</td>
+          <td class="p-4 text-right font-bold ${f.tipo === 'ingreso' ? 'text-brand-500' : 'text-rose-400'}">
+            ${f.tipo === 'ingreso' ? '+' : '-'}${db.config.moneda} ${Number(f.monto).toFixed(2)}
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function exportarBackup() {
+      const db = getDB();
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `iglesia_erp_backup.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+    }
+  </script>
 </body>
 </html>
