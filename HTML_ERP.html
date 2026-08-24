@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iglesia ERP - Gestión Ministerial</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              500: '#22c55e',
+              600: '#16a34a',
+              900: '#14532d',
+            },
+            darkbg: '#0f172a',
+            darkcard: '#1e293b',
+            darkborder: '#334155'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-darkbg text-slate-100 font-sans antialiased flex h-screen overflow-hidden">
+
+  <!-- Sidebar -->
+  <aside class="w-64 bg-darkcard border-r border-darkborder flex flex-col justify-between shrink-0">
+    <div>
+      <div class="p-5 border-b border-darkborder flex items-center gap-3">
+        <div class="bg-brand-600 p-2 rounded-lg text-white">
+          <i class="fa-solid fa-church text-xl"></i>
+        </div>
+        <div>
+          <h1 class="font-bold text-lg leading-none">Iglesia ERP</h1>
+          <span class="text-xs text-slate-400">Panel de Control</span>
+        </div>
+      </div>
+      
+      <nav class="p-4 space-y-1 overflow-y-auto max-h-[calc(100vh-140px)]">
+        <button onclick="switchTab('dashboard')" class="nav-btn active w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition hover:bg-slate-800">
+          <i class="fa-solid fa-chart-pie w-5 text-brand-500"></i> Dashboard
+        </button>
+        <button onclick="switchTab('miembros')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition text-slate-400 hover:bg-slate-800 hover:text-slate-200">
+          <i class="fa-solid fa-users w-5"></i> Miembros y Visitantes
+        </button>
+        <button onclick="switchTab('finanzas')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition text-slate-400 hover:bg-slate-800 hover:text-slate-200">
+          <i class="fa-solid fa-hand-holding-dollar w-5"></i> Finanzas y Diezmos
+        </button>
+        <button onclick="switchTab('grupos')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition text-slate-400 hover:bg-slate-800 hover:text-slate-200">
+          <i class="fa-solid fa-people-roof w-5"></i> Grupos Pequeños
+        </button>
+        <button onclick="switchTab('eventos')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition text-slate-400 hover:bg-slate-800 hover:text-slate-200">
+          <i class="fa-solid fa-calendar-check w-5"></i> Eventos y Servicios
+        </button>
+        <button onclick="switchTab('oracion')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition text-slate-400 hover:bg-slate-800 hover:text-slate-200">
+          <i class="fa-solid fa-hands-praying w-5"></i> Peticiones de Oración
+        </button>
+        <button onclick="switchTab('config')" class="nav-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition text-slate-400 hover:bg-slate-800 hover:text-slate-200">
+          <i class="fa-solid fa-sliders w-5"></i> Configuración
+        </button>
+      </nav>
+    </div>
+
+    <div class="p-4 border-t border-darkborder">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center font-bold text-xs">PA</div>
+        <div>
+          <p class="text-sm font-medium leading-none">Pastor Admin</p>
+          <span class="text-xs text-slate-400">Rol: Administrador</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="flex-1 flex flex-col overflow-y-auto bg-darkbg">
+    
+    <!-- Top Header -->
+    <header class="h-16 border-b border-darkborder px-6 flex items-center justify-between bg-darkcard/50 backdrop-blur sticky top-0 z-10">
+      <h2 id="page-title" class="text-xl font-bold">Dashboard General</h2>
+      <div class="flex items-center gap-3">
+        <button onclick="exportarBackup()" class="px-3 py-1.5 bg-slate-800 border border-darkborder rounded-lg text-xs font-medium hover:bg-slate-700 transition flex items-center gap-2">
+          <i class="fa-solid fa-download"></i> Respaldar Datos
+        </button>
+      </div>
+    </header>
+
+    <!-- Content Sections -->
+    <div class="p-6 space-y-6">
+
+      <!-- SECTION: DASHBOARD -->
+      <section id="sec-dashboard" class="tab-content space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div class="bg-darkcard p-5 rounded-xl border border-darkborder">
+            <p class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Total Miembros</p>
+            <h3 id="dash-total-miembros" class="text-2xl font-bold mt-1">0</h3>
+          </div>
+          <div class="bg-darkcard p-5 rounded-xl border border-darkborder">
+            <p class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Visitantes Nuevos</p>
+            <h3 id="dash-total-visitantes" class="text-2xl font-bold mt-1">0</h3>
+          </div>
+          <div class="bg-darkcard p-5 rounded-xl border border-darkborder">
+            <p class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Ingresos del Mes</p>
+            <h3 id="dash-total-ingresos" class="text-2xl font-bold mt-1">$0.00</h3>
+          </div>
+          <div class="bg-darkcard p-5 rounded-xl border border-darkborder">
+            <p class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Peticiones Activas</p>
+            <h3 id="dash-total-oraciones" class="text-2xl font-bold mt-1">0</h3>
+          </div>
+        </div>
+
+        <div class="bg-darkcard rounded-xl border border-darkborder p-5">
+          <h3 class="font-bold mb-4">Actividad Reciente</h3>
+          <ul id="lista-actividad" class="divide-y divide-darkborder text-sm text-slate-300">
+            <!-- Dinámico -->
+          </ul>
+        </div>
+      </section>
+
+      <!-- SECTION: MIEMBROS -->
+      <section id="sec-miembros" class="tab-content hidden space-y-4">
+        <div class="flex justify-between items-center">
+          <input type="text" id="search-miembros" onkeyup="filtrarMiembros()" placeholder="Buscar por nombre o teléfono..." class="bg-darkcard border border-darkborder rounded-lg px-4 py-2 text-sm w-72 focus:outline-none focus:border-brand-500">
+          <button onclick="abrirModalMiembro()" class="bg-brand-600 hover:bg-brand-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition flex items-center gap-2">
+            <i class="fa-solid fa-plus"></i> Nuevo Miembro / Visitante
+          </button>
+        </div>
+
+        <div class="bg-darkcard rounded-xl border border-darkborder overflow-hidden">
+          <table class="w-full text-left border-collapse">
+            <thead class="bg-slate-800/50 text-slate-400 text-xs uppercase border-b border-darkborder">
+              <tr>
+                <th class="p-4">Nombre</th>
+                <th class="p-4">Teléfono</th>
+                <th class="p-4">Clasificación</th>
+                <th class="p-4">Estado Espiritual</th>
+                <th class="p-4 text-right">Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tabla-miembros" class="divide-y divide-darkborder text-sm">
+              <!-- Dinámico -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SECTION: FINANZAS -->
+      <section id="sec-finanzas" class="tab-content hidden space-y-4">
+        <div class="flex justify-end gap-3">
+          <button onclick="registrarTransaccion('ingreso')" class="bg-brand-600 hover:bg-brand-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition flex items-center gap-2">
+            <i class="fa-solid fa-arrow-down font-bold"></i> Registrar Ingreso / Diezmo
+          </button>
+          <button onclick="registrarTransaccion('egreso')" class="bg-rose-600 hover:bg-rose-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition flex items-center gap-2">
+            <i class="fa-solid fa-arrow-up font-bold"></i> Registrar Gasto
+          </button>
+        </div>
+
+        <div class="bg-darkcard rounded-xl border border-darkborder overflow-hidden">
+          <table class="w-full text-left border-collapse">
+            <thead class="bg-slate-800/50 text-slate-400 text-xs uppercase border-b border-darkborder">
+              <tr>
+                <th class="p-4">Fecha</th>
+                <th class="p-4">Tipo</th>
+                <th class="p-4">Categoría</th>
+                <th class="p-4">Descripción</th>
+                <th class="p-4 text-right">Monto</th>
+              </tr>
+            </thead>
+            <tbody id="tabla-finanzas" class="divide-y divide-darkborder text-sm">
+              <!-- Dinámico -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SECTION: CONFIGURACION -->
+      <section id="sec-config" class="tab-content hidden space-y-4">
+        <div class="bg-darkcard p-6 rounded-xl border border-darkborder space-y-4 max-w-xl">
+          <h3 class="font-bold text-lg">Ajustes de la Iglesia</h3>
+          <div>
+            <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Nombre de la Congregación</label>
+            <input type="text" id="cfg-nombre" class="w-full bg-slate-900 border border-darkborder rounded-lg p-2.5 text-sm">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Moneda Local</label>
+            <input type="text" id="cfg-moneda" value="USD ($)" class="w-full bg-slate-900 border border-darkborder rounded-lg p-2.5 text-sm">
+          </div>
+          <button onclick="guardarConfiguracion()" class="bg-brand-600 hover:bg-brand-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
+            Guardar Cambios
+          </button>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- JS Principal -->
+  <script src="js/db.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
